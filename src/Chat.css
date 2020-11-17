@@ -3,3 +3,95 @@
     flex-direction: column;
     flex: 70%;
 }
+
+.chat__header {
+    display: flex;
+    align-items: center;
+    background-color: gainsboro;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.chat__headerInfo {
+    flex: 1;
+    padding-left: 10px;
+}
+
+.chat__headerInfo > h2 {
+    font-size: 18px;
+    margin-bottom: 2px;
+    font-weight: 700;
+}
+
+.chat__headerInfo > p {
+    font-size: 14px;
+    color: gray;
+}
+
+.chat__body {
+    flex: 1;
+    background-image: url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png);
+    background-position: center;
+    background-repeat: repeat;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+.chat__message {
+    position: relative;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 16px;
+    width: fit-content;
+    margin-bottom: 20px;
+}
+
+.chat__receiver {
+    margin-left: auto;
+    background-color: rgb(175, 255, 175);
+}
+
+.chat__name {
+    position: absolute;
+    top: -15px;
+    font-weight: 700;
+    font-size: xx-small;
+}
+
+.chat__timestamp {
+    font-size: xx-small;
+    padding-left: 10px;
+    bottom: 15px;
+}
+
+.chat__footer {
+    display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: gainsboro;
+}
+
+.chat__footer > form {
+    display: flex;
+    flex: 1;
+    padding-left: 10px;
+}
+
+.chat__footer > form > input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    outline-width: 0;
+}
+
+.chat__footer > form > button {
+    display: none;
+}
+
+.chat__footer > .MuiSvgIcon-root {
+    color: gray;
+    padding: 10px;
+}
