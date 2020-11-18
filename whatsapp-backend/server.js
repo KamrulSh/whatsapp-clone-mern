@@ -1,13 +1,26 @@
 import express from "express";
 import mongoose from "mongoose";
 import Messages from "./dbMessages.js";
+import Pusher from "pusher";
 
 // app config
 const app = express();
 const port = process.env.PORT || 9000;
+const pusher = new Pusher({
+    appId: "1109074",
+    key: "ff330c23b99e82b5fc06",
+    secret: "a3ca1c1809c2aa1aa432",
+    cluster: "mt1",
+    useTLS: true,
+});
 
 //middleware
 app.use(express.json());
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Header", "*");
+    next();
+});
 
 // DB config
 const connection_url =
@@ -16,6 +29,26 @@ mongoose.connect(connection_url, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.once("open", () => {
+    console.log("DB connected");
+    const msgCollection = db.collection("messagecontents");
+    const changeStream = msgCollection.watch();
+    changeStream.on("change", (change) => {
+        console.log(change);
+
+        if (change.operationType === "insert") {
+            const messageDetails = change.fullDocument;
+            pusher.trigger("messages", "inserted", {
+                name: messageDetails.name,
+                message: messageDetails.message,
+            });
+        } else {
+            console.log("Error triggering Pusher");
+        }
+    });
 });
 
 // ????
